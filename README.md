@@ -50,4 +50,4 @@ All requirements from the assignment have been successfully implemented and are 
 4. Port-forward or use tunnel: `minikube tunnel`
 5. Access via `https://wisecow.local` (add to /etc/hosts: `127.0.0.1 wisecow.local`)
 
-The repository is set to public as per the updated requirements.
+
