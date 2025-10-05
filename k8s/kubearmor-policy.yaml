@@ -1,0 +1,41 @@
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: wisecow-allow
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: wisecow
+  file:
+    matchPaths:
+    - path: /usr/games/fortune
+    - path: /usr/games/cowsay
+    matchDirectories:
+    - dir: /tmp/
+    - dir: /app/
+  network:
+    matchProtocols:
+    - protocol: tcp
+  process:
+    matchPaths:
+    - path: /app/wisecow.sh
+    - path: /usr/games/fortune
+    - path: /usr/games/cowsay
+    - path: /usr/bin/nc
+  action: Allow
+---
+apiVersion: security.kubearmor.com/v1
+kind: KubeArmorPolicy
+metadata:
+  name: wisecow-block-writes
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: wisecow
+  file:
+    matchDirectories:
+    - dir: /app/
+      readOnly: true
+  action: Block
